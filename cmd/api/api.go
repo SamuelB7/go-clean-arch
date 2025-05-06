@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"log"
@@ -26,7 +26,7 @@ func (app *application) mount() http.Handler {
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.Timeout(60 * time.Second))
 
-	r.Route("v1/", func(r chi.Router) {
+	r.Route("/v1", func(r chi.Router) {
 		r.Get("/health", app.healthCheckHandler)
 	})
 
