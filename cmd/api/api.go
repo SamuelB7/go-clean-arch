@@ -1,6 +1,7 @@
 package main
 
 import (
+	store "go-clean-arch/internal/store/postgres"
 	"log"
 	"net/http"
 	"time"
@@ -11,6 +12,7 @@ import (
 
 type application struct {
 	config config
+	store  store.Storage
 }
 
 type config struct {
