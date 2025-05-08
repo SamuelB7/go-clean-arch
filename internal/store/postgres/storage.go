@@ -3,11 +3,12 @@ package store
 import (
 	"context"
 	"database/sql"
+	"go-clean-arch/internal/domain/entity"
 )
 
 type Storage struct {
 	Users interface {
-		Create(context.Context) error
+		Create(context.Context, *entity.User) error
 	}
 }
 
