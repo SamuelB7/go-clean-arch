@@ -1,4 +1,4 @@
-package store
+package postgresql
 
 import (
 	"context"
@@ -6,14 +6,14 @@ import (
 	"go-clean-arch/internal/domain/entity"
 )
 
-type Storage struct {
+type Repository struct {
 	Users interface {
 		Create(context.Context, *entity.User) error
 	}
 }
 
-func NewPostgresStorage(db *sql.DB) Storage {
-	return Storage{
-		Users: &PostgresUserStore{db},
+func NewPostgresRepository(db *sql.DB) Repository {
+	return Repository{
+		Users: &PostgresUserRepository{db},
 	}
 }
