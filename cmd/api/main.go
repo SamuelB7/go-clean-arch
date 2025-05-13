@@ -18,7 +18,7 @@ func main() {
 	db_password := os.Getenv("DATABASE_PASSWORD")
 	db_name := os.Getenv("DATABASE_NAME")
 
-	db, err := repository.NewDBConnection(db_host, db_port, db_user, db_password, db_name)
+	db, err := repository.NewPGSqlConnection(db_host, db_port, db_user, db_password, db_name, 30, 30)
 
 	if err != nil {
 		log.Fatal(fmt.Errorf("unable to open database connection: %w", err))
@@ -29,12 +29,6 @@ func main() {
 	app := &application{
 		config: config{
 			addr: ":8080",
-			db: dbConfig{
-				addr:         os.Getenv("DATABASE_URL"),
-				maxOpenConns: 30,
-				maxIdleConns: 30,
-				maxIdleTime:  "15min",
-			},
 		},
 		repository: repo,
 	}

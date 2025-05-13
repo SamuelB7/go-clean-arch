@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-clean-arch/internal/adapter/repository/postgresql"
+	"go-clean-arch/internal/adapter/repository"
 	"log"
 	"net/http"
 	"time"
@@ -12,19 +12,11 @@ import (
 
 type application struct {
 	config     config
-	repository postgresql.Repository
+	repository repository.Repository
 }
 
 type config struct {
 	addr string
-	db   dbConfig
-}
-
-type dbConfig struct {
-	addr         string
-	maxOpenConns int
-	maxIdleConns int
-	maxIdleTime  string
 }
 
 func (app *application) mount() http.Handler {

@@ -2,13 +2,8 @@ package postgresql
 
 import (
 	"context"
-	"database/sql"
 	"go-clean-arch/internal/domain/entity"
 )
-
-type PostgresUserRepository struct {
-	db *sql.DB
-}
 
 func (s *PostgresUserRepository) Create(ctx context.Context, user *entity.User) error {
 	query := `INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id`

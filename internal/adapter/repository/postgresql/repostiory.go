@@ -1,19 +1,24 @@
 package postgresql
 
 import (
-	"context"
 	"database/sql"
-	"go-clean-arch/internal/domain/entity"
+	"go-clean-arch/internal/adapter/repository"
 )
 
-type Repository struct {
-	Users interface {
-		Create(context.Context, *entity.User) error
+type PostgresUserRepository struct {
+	db *sql.DB
+}
+
+type PostgresRepository struct {
+	userRepo *PostgresUserRepository
+}
+
+func NewPostgresRepository(db *sql.DB) repository.Repository {
+	return &PostgresRepository{
+		userRepo: &PostgresUserRepository{db: db},
 	}
 }
 
-func NewPostgresRepository(db *sql.DB) Repository {
-	return Repository{
-		Users: &PostgresUserRepository{db},
-	}
+func (r *PostgresRepository) Users() repository.UserRepository {
+	return r.userRepo
 }
