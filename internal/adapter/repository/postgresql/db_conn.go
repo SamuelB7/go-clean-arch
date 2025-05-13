@@ -9,14 +9,18 @@ import (
 	_ "github.com/lib/pq"
 )
 
-func NewDBConnection(host, port, user, password, dbname string) (*sql.DB, error) {
+func NewPGSqlConnection(host, port, user, password, dbName string, maxOpenConn int, maxIdleConn int) (*sql.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		host, port, user, password, dbName)
 
 	db, err := sql.Open("postgres", psqlInfo)
+
 	if err != nil {
 		return nil, fmt.Errorf("unable to open database connection: %w", err)
 	}
+
+	db.SetMaxOpenConns(maxOpenConn)
+	db.SetMaxIdleConns(maxIdleConn)
 
 	if err = db.Ping(); err != nil {
 		return nil, fmt.Errorf("unable to ping database: %w", err)
