@@ -9,3 +9,12 @@ type UserSignInRequest struct {
 type SignInResponse struct {
 	Token string `json:"token,omitempty"`
 }
+
+type UserLogInRequest struct {
+	Email    string `json:"email" validate:"required,email"`
+	Password string `json:"password" validate:"required,min=8"`
+}
+
+type UserLogInResponse struct {
+	Token string `json:"token,omitempty"`
+}
