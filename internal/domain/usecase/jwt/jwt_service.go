@@ -40,6 +40,7 @@ func ExtractToken(r *http.Request) (string, error) {
 
 func ValidateToken(r *http.Request) error {
 	tokenString, err := ExtractToken(r)
+
 	if err != nil {
 		return err
 	}
