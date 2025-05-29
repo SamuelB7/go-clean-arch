@@ -17,6 +17,6 @@ func (s *PostgresUserRepository) Create(ctx context.Context, user *entity.User) 
 	return nil
 }
 
-func (s *PostgresUserRepository) FindByEmail(email string) (*entity.User, error) {
+func (s *PostgresUserRepository) FindByEmail(ctx context.Context, email string) (*entity.User, error) {
 	panic("unimplemented")
 }
