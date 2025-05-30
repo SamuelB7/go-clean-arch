@@ -2,6 +2,7 @@ package main
 
 import (
 	"go-clean-arch/internal/adapter/repository"
+	"go-clean-arch/internal/domain/usecase/user"
 	"log"
 	"net/http"
 	"time"
@@ -11,8 +12,9 @@ import (
 )
 
 type application struct {
-	config     config
-	repository repository.Repository
+	config      config
+	repository  repository.Repository
+	userUseCase user.UserUseCase
 }
 
 type config struct {
@@ -33,6 +35,7 @@ func (app *application) mount() http.Handler {
 
 		r.Route("/auth", func(r chi.Router) {
 			r.Post("/sign-in", app.signInHandler)
+			r.Post("/login", app.loginHandler)
 		})
 	})
 
