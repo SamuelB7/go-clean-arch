@@ -4,6 +4,7 @@ import (
 	"fmt"
 	cfg "go-clean-arch/config"
 	repository "go-clean-arch/internal/adapter/repository/postgresql"
+	"go-clean-arch/internal/domain/usecase/user"
 	"log"
 	"os"
 )
@@ -26,11 +27,14 @@ func main() {
 
 	repo := repository.NewPostgresRepository(db)
 
+	userUseCase := user.NewUserService(repo.Users())
+
 	app := &application{
 		config: config{
 			addr: ":8080",
 		},
-		repository: repo,
+		repository:  repo,
+		userUseCase: userUseCase,
 	}
 
 	mux := app.mount()
