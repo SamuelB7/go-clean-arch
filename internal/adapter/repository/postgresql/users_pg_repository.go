@@ -2,6 +2,7 @@ package postgresql
 
 import (
 	"context"
+	"database/sql"
 	"go-clean-arch/internal/domain/entity"
 )
 
@@ -18,5 +19,26 @@ func (s *PostgresUserRepository) Create(ctx context.Context, user *entity.User) 
 }
 
 func (s *PostgresUserRepository) FindByEmail(ctx context.Context, email string) (*entity.User, error) {
-	panic("unimplemented")
+	query := `SELECT id, name, email, role, created_at, updated_at FROM users WHERE email = $1`
+
+	var user entity.User
+
+	err := s.db.QueryRowContext(ctx, query, email).Scan(
+		&user.Id,
+		&user.Name,
+		&user.Email,
+		&user.Role,
+		&user.CreatedAt,
+		&user.UpdatedAt,
+	)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	return &user, nil
 }
