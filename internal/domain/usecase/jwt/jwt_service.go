@@ -11,6 +11,7 @@ import (
 	jwt "github.com/golang-jwt/jwt/v5"
 )
 
+// TODO: Add user email to token
 func GenerateToken(userId string) (string, error) {
 	claims := jwt.MapClaims{
 		"user_id": userId,

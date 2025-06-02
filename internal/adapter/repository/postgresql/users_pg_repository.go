@@ -19,7 +19,7 @@ func (s *PostgresUserRepository) Create(ctx context.Context, user *entity.User) 
 }
 
 func (s *PostgresUserRepository) FindByEmail(ctx context.Context, email string) (*entity.User, error) {
-	query := `SELECT id, name, email, role, created_at, updated_at FROM users WHERE email = $1`
+	query := `SELECT id, name, email, password, role, created_at, updated_at FROM users WHERE email = $1`
 
 	var user entity.User
 
@@ -27,6 +27,7 @@ func (s *PostgresUserRepository) FindByEmail(ctx context.Context, email string) 
 		&user.Id,
 		&user.Name,
 		&user.Email,
+		&user.Password,
 		&user.Role,
 		&user.CreatedAt,
 		&user.UpdatedAt,
