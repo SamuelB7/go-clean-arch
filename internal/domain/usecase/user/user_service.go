@@ -50,6 +50,7 @@ func (u *UserService) SignIn(ctx context.Context, request UserSignInRequest) (*S
 		Name:     request.Name,
 		Email:    request.Email,
 		Password: hashedPAssword,
+		Role:     "CLIENT",
 	}
 
 	if err := u.repository.Create(ctx, user); err != nil {
