@@ -12,3 +12,9 @@ migrate-up:
 .PHONY: migrate-down
 migrate-down:
 	@migrate -path $(MIGRATIONS_PATH) -database $(DATABASE_URL) down $(filter-out $@,$(MAKECMDGOALS))
+
+.PHONY: gen-docs
+gen-docs:
+	@echo "Generating API documentation..."
+	@swag init -g ./api/main.go -d cmd && swag fmt
+	@echo "API documentation generated successfully."

@@ -1,0 +1,13 @@
+basePath: /v1
+info:
+  contact: {}
+  description: Simple rest API being made with clean arch principles
+  title: Golang Clean-Arch API
+  version: 0.0.1
+paths: {}
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

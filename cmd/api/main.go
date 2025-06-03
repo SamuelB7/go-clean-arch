@@ -9,6 +9,14 @@ import (
 	"os"
 )
 
+//	@title						Golang Clean-Arch API
+//	@version					0.0.1
+//	@description				Simple rest API being made with clean arch principles
+//	@BasePath					/v1
+//	@securityDefinitions.apikey	ApiKeyAuth
+//	@in							header
+//	@name						Authorization
+
 func main() {
 
 	cfg.LoadEnvs()

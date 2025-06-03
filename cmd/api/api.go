@@ -1,14 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"go-clean-arch/internal/adapter/repository"
 	"go-clean-arch/internal/domain/usecase/user"
 	"log"
 	"net/http"
 	"time"
 
+	_ "go-clean-arch/docs"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	httpSwagger "github.com/swaggo/http-swagger/v2"
 )
 
 type application struct {
@@ -32,6 +36,9 @@ func (app *application) mount() http.Handler {
 
 	r.Route("/v1", func(r chi.Router) {
 		r.Get("/health", app.healthCheckHandler)
+
+		docsUrl := fmt.Sprintf("%s/swagger/doc.json", app.config.addr)
+		r.Get("/swagger/*", httpSwagger.Handler(httpSwagger.URL(docsUrl)))
 
 		r.Route("/auth", func(r chi.Router) {
 			r.Post("/sign-in", app.signInHandler)

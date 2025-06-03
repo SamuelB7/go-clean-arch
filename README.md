@@ -29,3 +29,13 @@ go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@lat
 ```sh
 make migrate-up
 ```
+
+### Swagger Documentation
+
+To generate and update de docs run the command:
+
+```sh
+ make gen-docs
+```
+
+To access the swagger docs, access: `http://localhost:8080/v1/swagger/index.html`
