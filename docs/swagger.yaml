@@ -1,10 +1,132 @@
 basePath: /v1
+definitions:
+  go-clean-arch_internal_domain_usecase_user.SignInResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  go-clean-arch_internal_domain_usecase_user.UserLogInRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  go-clean-arch_internal_domain_usecase_user.UserLogInResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  go-clean-arch_internal_domain_usecase_user.UserSignInRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
 info:
   contact: {}
   description: Simple rest API being made with clean arch principles
   title: Golang Clean-Arch API
   version: 0.0.1
-paths: {}
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login with existing user credentials
+      parameters:
+      - description: User login data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/go-clean-arch_internal_domain_usecase_user.UserLogInRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User successfully logged in
+          schema:
+            $ref: '#/definitions/go-clean-arch_internal_domain_usecase_user.UserLogInResponse'
+        "400":
+          description: Bad request - invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized - invalid credentials
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not found - user does not exist
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: User Login
+      tags:
+      - auth
+  /auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user in the app
+      parameters:
+      - description: User sign in data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/go-clean-arch_internal_domain_usecase_user.UserSignInRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User successfully created
+          schema:
+            $ref: '#/definitions/go-clean-arch_internal_domain_usecase_user.SignInResponse'
+        "400":
+          description: Bad request - invalid input
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict - user already exists
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: User Sign In
+      tags:
+      - auth
 securityDefinitions:
   ApiKeyAuth:
     in: header

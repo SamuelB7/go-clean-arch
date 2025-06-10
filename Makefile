@@ -16,5 +16,5 @@ migrate-down:
 .PHONY: gen-docs
 gen-docs:
 	@echo "Generating API documentation..."
-	@swag init -g ./api/main.go -d cmd && swag fmt
+	@swag init -g ./cmd/api/main.go -o ./docs --parseDependency --parseInternal
 	@echo "API documentation generated successfully."
