@@ -5,6 +5,19 @@ import (
 	"net/http"
 )
 
+// signIn godoc
+//
+//	@Summary		User Sign In
+//	@Description	Register a new user in the app
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			request	body		user.UserSignInRequest	true	"User sign in data"
+//	@Success		201		{object}	user.SignInResponse		"User successfully created"
+//	@Failure		400		{object}	map[string]string		"Bad request - invalid input"
+//	@Failure		409		{object}	map[string]string		"Conflict - user already exists"
+//	@Failure		500		{object}	map[string]string		"Internal server error"
+//	@Router			/auth/sign-in [post]
 func (app *application) signInHandler(w http.ResponseWriter, r *http.Request) {
 	var userSignIn user.UserSignInRequest
 
@@ -36,6 +49,20 @@ func (app *application) signInHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// login godoc
+//
+//	@Summary		User Login
+//	@Description	Login with existing user credentials
+//	@Tags			auth
+//	@Accept			json
+//	@Produce		json
+//	@Param			request	body		user.UserLogInRequest	true	"User login data"
+//	@Success		200		{object}	user.UserLogInResponse	"User successfully logged in"
+//	@Failure		400		{object}	map[string]string		"Bad request - invalid input"
+//	@Failure		401		{object}	map[string]string		"Unauthorized - invalid credentials"
+//	@Failure		404		{object}	map[string]string		"Not found - user does not exist"
+//	@Failure		500		{object}	map[string]string		"Internal server error"
+//	@Router			/auth/login [post]
 func (app *application) loginHandler(w http.ResponseWriter, r *http.Request) {
 	var userLogin user.UserLogInRequest
 
