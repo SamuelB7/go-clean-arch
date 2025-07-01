@@ -6,6 +6,7 @@ import (
 	"go-clean-arch/internal/adapter/repository"
 	"go-clean-arch/internal/domain/entity"
 	"go-clean-arch/internal/domain/usecase/jwt"
+	"strconv"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -57,7 +58,9 @@ func (u *UserService) SignIn(ctx context.Context, request UserSignInRequest) (*S
 		return nil, err
 	}
 
-	token, err := jwt.GenerateToken(user.Id)
+	formattedUserId := strconv.FormatInt(user.Id, 10)
+
+	token, err := jwt.GenerateToken(formattedUserId)
 
 	if err != nil {
 		return nil, err
@@ -87,7 +90,9 @@ func (u *UserService) LogIn(ctx context.Context, request UserLogInRequest) (*Use
 		return nil, errors.New("Invalid credentials")
 	}
 
-	token, err := jwt.GenerateToken(user.Id)
+	formattedUserId := strconv.FormatInt(user.Id, 10)
+
+	token, err := jwt.GenerateToken(formattedUserId)
 
 	if err != nil {
 		return nil, err
