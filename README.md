@@ -39,3 +39,21 @@ To generate and update de docs run the command:
 ```
 
 To access the swagger docs, access: `http://localhost:8080/v1/swagger/index.html`
+
+### Tests
+
+#### Execute all tests
+```sh
+go test ./...
+```
+
+#### Execute specific test
+```sh
+go test ./cmd/api/
+go test ./internal/adapter/repository/mock/
+```
+
+#### Execute tests with verbose
+```sh
+go test -v ./cmd/api/
+```
